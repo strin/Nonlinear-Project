@@ -1,0 +1,80 @@
+function [ stepSize ] = calcLinearStepSize(x,d,data)
+% x is the current solution 
+% d is the direction
+% data is the transaction data
+
+b = x(1);
+eta = x(2);
+db = d(1);
+de = d(2);
+
+% dder = @(alpha) sum(calcLinearGradient([b + alpha*db, eta + alpha*de],data).*[db de]);
+% 
+% stepSize = fzero(dder,[0 1]);
+
+[T,m] = size(data);
+o = ones(T,1);
+z = zeros(T,1);
+
+data1 = data(:,2) == o;
+data0 = data(:,2) == z;
+
+% bees1 = (b+db)*data1;
+% bees2 = (b+db)*data0;
+% 
+% [worst1,iWorst1] = min(bees1 - (eta+de)*data1);
+% [worst0,iWorst0] = max(bees2 - (eta+de)*data0);
+
+%Setting up Ratio test to maintain feasibility
+test1 = -(b*data1 - eta*(data1.*data(:,1)))./(db*data1 - de*(data1.*data(:,1)));
+test0 = (1 - b*data0 + eta*(data0.*data(:,1)))./(db*data0 - de*(data0.*data(:,1)));
+
+%Only positive values of test1 and test0 count
+for t = 1:T
+    if 0 > test1(t,1)
+        test1(t,1) = 1;
+    end
+    if 0 > test0(t,1)
+        test0(t,1) = 1;
+    end
+end
+
+%Finding worst case violation
+c1 = min(test1);
+c0 = min(test0);
+c0 = min(c0,1);
+% 
+% if db < 0
+%     cb = 0.95*(-b/db);
+% else 
+%     cb = 1;
+% end
+% 
+% if de < 0
+%     ce = 0.95*(-eta/de);
+% else 
+%     ce = 1;
+% end
+
+stepSize = 0.4*min(c1,c0);
+
+%Optional line search
+geval = calcLinearGradient(x+stepSize*d,data);
+dpeval = sum(geval.*d);
+if dpeval <0
+    aL = 0;
+    aR = stepSize;
+    stepSize = stepSize/2;
+    count = 1;
+    while abs(dpeval) >= 0.0000001 && count <= 2000
+        geval = calcLinearGradient(x+stepSize*d,data);
+        dpeval = sum(geval.*d);
+        if dpeval > 0
+            aL = stepSize;
+        else
+            aR = stepSize;
+        end
+         stepSize = (aL+aR)/2;
+    end
+end
+end

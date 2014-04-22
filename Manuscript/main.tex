@@ -1,0 +1,74 @@
+\documentclass[12pt]{report}
+\usepackage[margin=1in]{geometry}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, urlcolor=blue}
+\usepackage[OT1]{fontenc}
+\usepackage{color}
+\usepackage{float}
+\usepackage{amstext,amsmath,amssymb}
+%\usepackage{cite}
+\usepackage{graphicx}
+%\usepackage{babel}
+\usepackage{geometry}
+\usepackage{lscape}
+\usepackage{enumitem}
+\usepackage{multicol}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage{fancyhdr, pdfpages}
+
+\title{	\textbf{Demand Function Estimation with Stochastic Gradient Methods}}
+\author{
+	Clark Pixton, Tianlin Shi, Peter Y. Zhang}
+%\date{due date here}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+Abstract here.
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Introduction}\label{ch:introduction}
+\input{chapters/introduction}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Problem Description}\label{ch:problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Optimization Model: Maximum Likelihood Estimation}\label{ch:model}
+\input{chapters/model}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Stochastic Gradient Methods}\label{ch:method}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Experiment}\label{ch:experiment}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Results and Discussion}\label{ch:result}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\bibliography{bibliography}
+%\bibliographystyle{unsrt}
+
+%\newpage
+\appendix \label{appendix}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Code}\label{app:code}
+
+
+\end{document}
